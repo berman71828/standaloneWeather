@@ -23,7 +23,7 @@
 <tr>
 <td>Current Temperature:</td>
 <td>
-    <?php echo "$curDisplayTemp degrees $displayScale" ?>
+    <?php echo number_format($curDisplayTemp,1) . " degrees $displayScale" ?>
 </td>
 </tr>
 </table>

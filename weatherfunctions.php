@@ -59,6 +59,7 @@ function getScale() {
     return $scale;
 }
 
+/*
 function changeScale() {
     global $scale;
     if ($scale == 'F') {
@@ -68,5 +69,10 @@ function changeScale() {
         $scale = 'F';
     }
 }
+*/
 
+function changeScale() {
+    global $scale;
+    $scale == 'F' ? $scale = 'C' : $scale = 'F';
+}
 ?>
