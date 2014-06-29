@@ -6,25 +6,14 @@ require_once 'simulator.php';
 
 $initialScale = 'F';
 
-if (!isset($_POST['refresh'])) {
-    $iteration = 0;
-}
-else {
-    $iteration = $_POST['iteration'] + 1;
-}
+$iteration = isset($_POST['refresh']) ? $_POST['iteration'] + 1 : 0;
 
-if (isset($_POST['historyOn'])) {
-    $showHistory = True;
-}
-else {
-    $showHistory = False;
-}
+$showHistory = isset($_POST['historyOn']) ? True : False;
+
+$scale = 'F';
 
 if (isset($_POST['scale'])) {
-    if ($_POST['scale'] == 'F')
-        $scale = 'F';
-    else
-        $scale = 'C';
+    $scale = ($_POST['scale'] == 'F') ? 'F' : 'C';
 }
 else {
     $scale = $initialScale;
@@ -58,18 +47,6 @@ function getScale() {
     global $scale;
     return $scale;
 }
-
-/*
-function changeScale() {
-    global $scale;
-    if ($scale == 'F') {
-        $scale = 'C';
-    }
-    else {
-        $scale = 'F';
-    }
-}
-*/
 
 function changeScale() {
     global $scale;
