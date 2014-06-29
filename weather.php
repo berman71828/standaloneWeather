@@ -43,14 +43,24 @@ function refreshData() {
     var newTemperature = +document.getElementById("displayedTemperature").value;
     newTemperature += 0.1;
     document.getElementById("displayedTemperature").value = newTemperature;    // TO DO: This goes away once we retrieve the data from the server.
-    
-    document.getElementById("temperatureDataCell").innerHTML = newTemperature;
+
+    document.getElementById("temperatureDataCell").innerHTML = newTemperature.toFixed(1) + " degrees " + "<?php echo $displayScale ?>";
+
+    blinkHRs();
+
+}
+
+function setScale() {
+
+alert("Click refresh for scale change to take effect.");
+// TO DO : make scale change upon radio button selection.
+//              Will need to call refreshData();
 
 }
 
 
 function startTimer() {
-    setInterval("refreshData()", 2000);
+    setInterval("refreshData()", 3000);
 }
 
 </script>
@@ -82,11 +92,12 @@ view history
 <td>
 <br/>
 Scale:
-<input type="radio" name="scale" value="F" <?php if ($scale=='F') {echo 'CHECKED';} ?>> F
-<input type="radio" name="scale" value="C" <?php if ($scale=='C') {echo 'CHECKED';} ?>> C
+<input type="radio" name="scale" id="scaleFselected" value="F" <?php if ($scale=='F') {echo 'CHECKED';} ?> onclick="setScale()"> F
+<input type="radio" name="scale" id="scaleCselected" value="C" <?php if ($scale=='C') {echo 'CHECKED';} ?> onclick="setScale()"> C
 <input type="hidden" name="iteration" id="iteration" value="<?php echo $iteration;?>">
 <!-- TO DO: the displayedTemperature hidden input can go away once we retrieve data from the server. -->
 <input type="hidden" id="displayedTemperature" value=<?php echo number_format($curDisplayTemp,1) ?>>
+<input type="hidden" id="displayedScale" value="<?php echo $scale ?>">
 </td>
 </tr>
 </table>
