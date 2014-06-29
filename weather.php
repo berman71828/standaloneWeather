@@ -15,9 +15,37 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="weather.css">
+
+<script type="text/javascript">
+
+state = 0;
+
+function refreshIt() {
+
+    hrs = document.getElementsByClassName("hrules");
+
+    for (i = 0; i < hrs.length; i++) {
+        if (state) {
+            hrs[i].style.color = "#0000FF";
+	}
+	else {
+	    hrs[i].style.color = "#FF0000";
+	}
+    }    
+    state = ! state;
+
+   
+}
+
+function startTimer() {
+    setInterval("refreshIt()", 3000);
+}
+
+</script>
+
 <title>Weather</title>
 </head>
-<body>
+<body onload="startTimer()">
 <div id="WeatherCurData"> 
 <table>
 <tr>
@@ -44,7 +72,7 @@ view history
 Scale:
 <input type="radio" name="scale" value="F" <?php if ($scale=='F') {echo 'CHECKED';} ?>> F
 <input type="radio" name="scale" value="C" <?php if ($scale=='C') {echo 'CHECKED';} ?>> C
-<input type="hidden" name="iteration" value="<?php echo $iteration;?>">
+<input type="hidden" name="iteration" id="iteration" value="<?php echo $iteration;?>">
 </td>
 </tr>
 </table>
@@ -52,12 +80,13 @@ Scale:
 </form>
 </div>
 <div id ="WeatherHistory" <?php if ($showHistory=='True') {} else {?>style="display:none"<?php } ?>>
-<br/><hr/>
+<br/>
+<hr id="hr1" class="hrules" />
 <br/>History will eventually be displayed here.
 </div>
 <div id="DebugDiv">
 <br/>
-<hr/>
+<hr id="hr2" class="hrules" />
 <br/>
 DEBUGGING INFORMATION:
 <p>Iteration:       <?php echo $iteration      ?>  </p>
