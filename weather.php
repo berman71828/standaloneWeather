@@ -18,27 +18,39 @@
 
 <script type="text/javascript">
 
-state = 0;
+blinkState = 0;
 
-function refreshIt() {
+function blinkHRs() {
 
     hrs = document.getElementsByClassName("hrules");
 
     for (i = 0; i < hrs.length; i++) {
-        if (state) {
+        if (blinkState) {
             hrs[i].style.color = "#0000FF";
 	}
 	else {
 	    hrs[i].style.color = "#FF0000";
 	}
     }    
-    state = ! state;
-
-   
+    blinkState = ! blinkState;
 }
 
+function refreshData() {
+
+    // Phase 1: just figure out how to update the DIV.
+    // Phase 2: update the DIV with new data retrieved from the server.
+    
+    var newTemperature = +document.getElementById("displayedTemperature").value;
+    newTemperature += 0.1;
+    document.getElementById("displayedTemperature").value = newTemperature;    // TO DO: This goes away once we retrieve the data from the server.
+    
+    document.getElementById("temperatureDataCell").innerHTML = newTemperature;
+
+}
+
+
 function startTimer() {
-    setInterval("refreshIt()", 3000);
+    setInterval("refreshData()", 2000);
 }
 
 </script>
@@ -50,7 +62,7 @@ function startTimer() {
 <table>
 <tr>
 <td>Current Temperature:</td>
-<td>
+<td id=temperatureDataCell>
     <?php echo number_format($curDisplayTemp,1) . " degrees $displayScale" ?>
 </td>
 </tr>
@@ -73,6 +85,8 @@ Scale:
 <input type="radio" name="scale" value="F" <?php if ($scale=='F') {echo 'CHECKED';} ?>> F
 <input type="radio" name="scale" value="C" <?php if ($scale=='C') {echo 'CHECKED';} ?>> C
 <input type="hidden" name="iteration" id="iteration" value="<?php echo $iteration;?>">
+<!-- TO DO: the displayedTemperature hidden input can go away once we retrieve data from the server. -->
+<input type="hidden" id="displayedTemperature" value=<?php echo number_format($curDisplayTemp,1) ?>>
 </td>
 </tr>
 </table>
